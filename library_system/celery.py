@@ -1,6 +1,7 @@
 import os
 from celery import Celery
-from celery.schedules import Crontrab
+from celery.schedules import crontab
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_system.settings')
 
@@ -12,6 +13,6 @@ app.autodiscover_tasks()
 CELERY_BEAT_SCHEDULE ={
     'check-overdue-loans-dialy':{
         'task':'library.tasks.check_overdue_loans',
-        'schedule':Crontrab(hour = 0, minutes = 0),
+        'schedule':crontab(hour = 0, minutes = 0),
     }
 }
