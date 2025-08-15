@@ -37,11 +37,16 @@ class Member(models.Model):
     def __str__(self):
         return self.user.username
 
+
+def default_due_date():
+    return timezone.now().date() + timedelta(days=14)
+
+
 class Loan(models.Model):
     book = models.ForeignKey(Book, related_name='loans', on_delete=models.CASCADE)
     member = models.ForeignKey(Member, related_name='loans', on_delete=models.CASCADE)
     loan_date = models.DateField(default=timezone.now)
-    due_date = models.DateField(null=True, blank=True, default=lambda:timezone.now() + timedelta(days = 14))
+    due_date = models.DateField(null=True, blank=True, default=default_due_date)
     is_returned = models.BooleanField(default=False)
 
     def __str__(self):

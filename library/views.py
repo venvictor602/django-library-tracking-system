@@ -53,8 +53,8 @@ class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
 
-    @action (details=True, methods=['POST'])
-    def extend_due_date(self, request, pk=None)
+    @action(detail=True, methods=['post'])
+    def extend_due_date(self, request, pk=None):
         loan = self.get_object()
         additional_days = request.data.get("additional_day", None)
 
