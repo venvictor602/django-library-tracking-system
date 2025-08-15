@@ -52,3 +52,26 @@ class MemberViewSet(viewsets.ModelViewSet):
 class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
+
+    @action (details=True, methods=['POST'])
+    def extend_due_date(self, request, pk=None)
+        loan = self.get_object()
+        additional_days = request.data.get("additional_day", None)
+
+        if loan.due_date < timezone.now():
+            return respone ({"error: Loan is Overdue"})
+
+        try:
+            additional_days = int(additional_day)
+            if additional_days <= 0:
+                raise ValueError
+        except(valueError, TypeError):
+            return REsponse({"Error":"Additional Date have to be positive"}
+        )
+    
+        loan.due_date += timedelta(days = additional_days)
+        loan.save()
+
+        return Response(LoanSerializer(loan))
+
+            
