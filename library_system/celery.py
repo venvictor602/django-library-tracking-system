@@ -13,6 +13,6 @@ app.autodiscover_tasks()
 CELERY_BEAT_SCHEDULE ={
     'check-overdue-loans-dialy':{
         'task':'library.tasks.check_overdue_loans',
-        'schedule':crontab(hour = 0, minutes = 0),
+        'schedule':crontab(hour = 0, minute = 0),
     }
 }
